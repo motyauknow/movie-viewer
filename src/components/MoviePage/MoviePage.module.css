@@ -1,0 +1,7 @@
+#movie {
+    display: grid;
+    grid-template-columns: 340px 530px 150px;
+    grid-gap: 40px;
+
+    padding-top: 80px;
+}
