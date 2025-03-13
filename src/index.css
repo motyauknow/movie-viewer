@@ -17,6 +17,11 @@ body {
     min-width: 280px;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 img { 
     width: 100%;
     border-radius: 10px;

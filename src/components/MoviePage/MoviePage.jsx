@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from './MoviePage.module.css'
 
+function getTimeFromMins(mins) {
+    let hours = Math.trunc(mins/60);
+	let minutes = mins % 60;
+	return hours + 'ч. ' + minutes + 'мин.';
+};
+
 function MoviePage() {
     const [filmData, setFilmData] = useState(null);
     const [staffData, setStaffData] = useState(null);
@@ -9,7 +15,7 @@ function MoviePage() {
 
 
     useEffect(() => {
-        fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/301', {
+        fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/361', {
             method: 'GET',
             headers: {
                 //пж не воруйте ключик ребята
@@ -21,6 +27,7 @@ function MoviePage() {
                 return res.json()
             })
             .then((res) => {
+                document.title = res.nameRu
                 setFilmData(res);
                 
                 let temp = res.countries.map(country => country.country + ' ');
@@ -33,7 +40,7 @@ function MoviePage() {
             })
             .catch(err => console.log(err))
 
-        fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=301', {
+        fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=302', {
             method: 'GET',
             headers: {
                 //пж не воруйте ключик ребята
@@ -67,17 +74,17 @@ function MoviePage() {
                         <h6 className={ styles.subtitle }>{ filmData.nameOriginal }</h6>
                         <p className={ styles.description }>{ filmData.shortDescription }</p>
 
-                        <a href="#!" className={ styles.watchBtn }>Смотреть</a>
+                        <a href="#!" className={ styles.watchBtn }>Смотреть фильм</a>
 
                         <h2>О фильме</h2>
 
                         <ul className={ styles.params }>
-                            <li><span>Год производства</span>{ filmData.year }</li>
-                            <li><span>Страна</span><p>{ countries }</p></li>
-                            <li><span>Жанр</span><p>{ genres }</p></li>
-                            <li><span>Слоган</span> { filmData.slogan } </li>
-                            <li><span>Режиссёр</span><p>{ staffData }</p></li>
-                            <li><span>Время</span>{ filmData.filmLength }</li>
+                            <li><span className={ styles.label }>Год производства </span>{ filmData.year }</li>
+                            <li><span className={ styles.label }>Страна </span>{ countries }</li>
+                            <li><span className={ styles.label }>Жанр </span>{ genres }</li>
+                            <li><span className={ styles.label }>Слоган </span> { filmData.slogan } </li>
+                            <li><span className={ styles.label }>Режиссёр </span>{ staffData }</li>
+                            <li><span className={ styles.label }>Время </span>{ getTimeFromMins(filmData.filmLength) }</li>
                             
                         </ul>
                     </div>
