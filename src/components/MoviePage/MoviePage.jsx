@@ -27,7 +27,7 @@ function MoviePage() {
                 return res.json()
             })
             .then((res) => {
-                document.title = res.nameRu
+                document.title = `MovieFinder - ${res.nameRu}`
                 setFilmData(res);
                 
                 let temp = res.countries.map(country => country.country + ' ');
